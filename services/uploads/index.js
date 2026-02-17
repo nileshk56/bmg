@@ -1,3 +1,4 @@
+//LAMBDA WRAPPE CODE
 const serverlessExpress = require('@vendia/serverless-express');
 const app = require('./server'); // your Express app
 
