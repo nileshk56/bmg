@@ -3,7 +3,7 @@ const config = require('../config');
 
 const dynamo = new AWS.DynamoDB.DocumentClient({
   region: config.aws.region,
-  //accessKeyId: config.aws.accessKeyId,
+  //accessKeyId: config.aws.accessKeyId, // not needed when running inside lambda
   //secretAccessKey: config.aws.secretAccessKey,
   //endpoint: config.aws.endpoint // if local, points to localhost
 });
