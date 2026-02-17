@@ -1,0 +1,15 @@
+{
+  "name": "bmg-services",
+  "private": true,
+  "scripts": {
+    "start:users": "node users/server.js",
+    "start:listings": "node listings/server.js",
+    "start:bookings": "node bookings/server.js",
+    "start:reviews": "node reviews/server.js",
+    "start:uploads": "node uploads/server.js",
+    "start:all": "concurrently -n users,listings,bookings,reviews,uploads -c blue,green,yellow,magenta,cyan \"npm run start:users\" \"npm run start:listings\" \"npm run start:bookings\" \"npm run start:reviews\" \"npm run start:uploads\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

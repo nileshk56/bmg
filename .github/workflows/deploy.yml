@@ -1,0 +1,106 @@
+name: Monorepo Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "services/**"
+      - "ui/**"
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      services: ${{ steps.changed.outputs.services }}
+      ui_changed: ${{ steps.changed.outputs.ui_changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: changed
+        run: |
+          set -euo pipefail
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.sha }}"
+          CHANGED=$(git diff --name-only "$BEFORE" "$AFTER" || true)
+
+          SERVICES=$(echo "$CHANGED" | awk -F/ '$1=="services" && NF>2 {print $2}' | sort -u)
+          if [ -z "$SERVICES" ]; then
+            echo "services=[]" >> "$GITHUB_OUTPUT"
+          else
+            JSON=$(printf '%s\n' "$SERVICES" | jq -R . | jq -s .)
+            echo "services=$JSON" >> "$GITHUB_OUTPUT"
+          fi
+
+          if echo "$CHANGED" | awk -F/ '$1=="ui" {exit 0} END {exit 1}'; then
+            echo "ui_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ui_changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy-services:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.services != '[]' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: ${{ fromJson(needs.detect-changes.outputs.services) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install deps
+        run: |
+          cd services/${{ matrix.service }}
+          npm ci
+
+      - name: Build zip
+        run: |
+          cd services/${{ matrix.service }}
+          zip -r ../${{ matrix.service }}.zip .
+
+      - name: Deploy to Lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name "${{ matrix.service }}" \
+            --zip-file "fileb://services/${{ matrix.service }}.zip"
+
+  deploy-ui:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.ui_changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install deps
+        run: |
+          cd ui
+          npm ci
+
+      - name: Build UI
+        run: |
+          cd ui
+          npm run build
+
+      - name: Deploy UI to S3
+        run: |
+          if [ -d "ui/dist" ]; then
+            BUILD_DIR="ui/dist"
+          else
+            BUILD_DIR="ui/build"
+          fi
+          aws s3 sync "$BUILD_DIR" "s3://${{ secrets.UI_S3_BUCKET }}" --delete

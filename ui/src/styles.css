@@ -1,0 +1,489 @@
+:root {
+  --feast: #ff8c42;
+  --feast-dark: #e26f1f;
+  --gold: #ffd166;
+  --rose: #ff6b6b;
+  --cream: #fff6ec;
+  --teal: #2aa198;
+}
+
+body {
+  font-family: "Hind Siliguri", sans-serif;
+  background-color: var(--cream);
+  color: #333;
+}
+
+.text-feast {
+  color: var(--feast);
+}
+
+.bg-feast {
+  background-color: var(--feast);
+}
+
+.sacred-header {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-bottom: 3px solid var(--feast);
+}
+
+.navbar-brand {
+  font-family: "Pacifico", "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--feast) !important;
+  letter-spacing: 0.5px;
+  font-size: 1.6rem;
+}
+
+.navbar-brand::before {
+  content: "🍲 ";
+  font-size: 1.2em;
+}
+
+.btn-feast {
+  background: linear-gradient(to right, var(--feast), var(--feast-dark));
+  color: white !important;
+  border: none;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(255, 140, 66, 0.3);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-feast:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(255, 140, 66, 0.4);
+}
+
+.btn-feast:active {
+  transform: translateY(1px);
+}
+
+.search-hero {
+  background: linear-gradient(rgba(255, 255, 255, 0.96), rgba(255, 246, 236, 0.96)),
+    url("https://via.placeholder.com/1920x400/FF8C42/FFFFFF?text=Home+Meals+Nearby")
+      center/cover;
+  padding: 4rem 0;
+  position: relative;
+}
+
+.search-hero::after {
+  content: "🥘";
+  position: absolute;
+  font-size: 18rem;
+  opacity: 0.05;
+  bottom: -60px;
+  right: -50px;
+  line-height: 1;
+  z-index: 0;
+}
+
+.search-card {
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: none;
+  overflow: visible;
+}
+
+.search-card .card-body {
+  overflow: visible;
+}
+
+.search-tabs .nav-link {
+  font-weight: 600;
+  color: #555;
+  border: none;
+  padding: 12px 20px;
+}
+
+.search-tabs .nav-link.active {
+  color: var(--feast-dark);
+  background: transparent;
+  border-bottom: 3px solid var(--feast);
+}
+
+.filter-chip {
+  display: inline-block;
+  padding: 6px 15px;
+  background: white;
+  border-radius: 20px;
+  margin: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  border: none;
+}
+
+.filter-chip:hover,
+.filter-chip.active {
+  background: var(--feast);
+  color: white;
+}
+
+.sacred-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+  border-top: 4px solid transparent;
+}
+
+.sacred-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid var(--feast);
+}
+
+.sacred-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  color: var(--feast-dark);
+}
+
+.floating-nav {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.floating-nav-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--feast);
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 5px 15px rgba(255, 140, 66, 0.4);
+}
+
+.callout-feast {
+  background: linear-gradient(135deg, rgba(255, 140, 66, 0.12), rgba(255, 140, 66, 0.24));
+}
+
+.login-wrap {
+  background: #fff7ef;
+}
+
+.login-art {
+  background: linear-gradient(145deg, rgba(255, 140, 66, 0.95), rgba(226, 111, 31, 0.95)),
+    url("https://via.placeholder.com/900x1200/FF8C42/FFFFFF?text=HomeFeast+Hosts")
+      center/cover;
+  flex: 0 0 42%;
+  color: white;
+}
+
+.login-form {
+  background: #fffdf9;
+}
+
+.login-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 140, 66, 0.15);
+  color: var(--feast-dark);
+  font-size: 28px;
+}
+
+.listing-hero {
+  background: linear-gradient(135deg, rgba(255, 140, 66, 0.15), rgba(255, 209, 102, 0.25));
+}
+
+.listing-hero-card {
+  background: white;
+  border-radius: 18px;
+  padding: 18px 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+  color: var(--feast-dark);
+}
+
+.listing-hero-card i {
+  font-size: 24px;
+}
+
+.user-menu-btn {
+  background: #fff;
+  border: 1px solid rgba(34, 34, 34, 0.12);
+  border-radius: 999px;
+  padding: 6px 14px;
+  gap: 8px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+  font-weight: 600;
+}
+
+.user-menu-btn:hover,
+.user-menu-btn:focus {
+  border-color: rgba(34, 34, 34, 0.2);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.user-menu-btn.dropdown-toggle::after {
+  display: none;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 140, 66, 0.2);
+  color: var(--feast-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-name {
+  text-transform: none;
+}
+
+.user-menu-panel {
+  border-radius: 14px;
+  border: none;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+  padding: 8px;
+}
+
+.user-menu-panel .dropdown-item {
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.user-menu-panel .dropdown-item:active {
+  background: rgba(255, 140, 66, 0.12);
+  color: inherit;
+}
+
+.photo-preview {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(34, 34, 34, 0.08);
+  background: #fff;
+}
+
+.photo-preview img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border-radius: 999px;
+}
+
+.profile-photo-preview {
+  width: 140px;
+  height: 140px;
+  border-radius: 18px;
+  border: 1px solid rgba(34, 34, 34, 0.08);
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: rgba(34, 34, 34, 0.5);
+  font-size: 32px;
+  background: rgba(255, 140, 66, 0.08);
+}
+
+.listing-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 12px;
+}
+
+.listing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0 12px 16px;
+}
+
+.listing-photo-btn {
+  padding: 0;
+  border: none;
+  background: transparent;
+  width: 100%;
+}
+
+.listing-photo-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.listing-photo-placeholder {
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  color: rgba(34, 34, 34, 0.5);
+}
+
+.review-card {
+  border: 1px solid rgba(34, 34, 34, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fff;
+}
+
+.badge-soft-feast {
+  background: rgba(255, 140, 66, 0.15);
+  color: var(--feast-dark);
+  font-weight: 600;
+}
+
+.badge-time {
+  background: rgba(255, 140, 66, 0.2);
+  color: #6b2a00;
+  font-weight: 600;
+}
+
+.listing-details-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+}
+
+@media (max-width: 992px) {
+  .listing-details-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-cta-panel {
+  background: linear-gradient(135deg, rgba(255, 140, 66, 0.08), rgba(255, 209, 102, 0.2));
+}
+
+.mobile-login-message {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #2d1b0b;
+  background: linear-gradient(120deg, rgba(255, 140, 66, 0.25), rgba(255, 209, 102, 0.45), rgba(42, 161, 152, 0.2));
+  padding: 18px 20px;
+  border-radius: 18px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  letter-spacing: 0.2px;
+}
+
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 12, 12, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.photo-lightbox-content {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+}
+
+.photo-lightbox-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+.photo-lightbox-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.area-input {
+  position: relative;
+}
+
+.area-suggest-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  max-height: 260px;
+  overflow-y: auto;
+  margin-top: 6px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+}
+
+.area-suggest-up {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 768px) {
+  .search-hero {
+    padding: 2rem 0;
+  }
+
+  .search-tabs .nav-link {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .login-wrap {
+    flex-direction: column;
+  }
+}
