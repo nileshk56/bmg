@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import { ucFirst } from "../utils/textUtils.js";
+import { API_BASE } from "../config/api.js";
 
 const FALLBACK_TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0YjM2NzBiYy05MGU1LTQ1YTUtYjYwMC03NmMyYzI3Y2ZkYjIiLCJlbWFpbCI6Im5pbGVzaDFAZXhhbXBsZS5jb20iLCJmaXJzdG5hbWUiOiJuaWxlc2giLCJsYXN0bmFtZSI6ImthbiIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3NzA1MzI2NjQsImV4cCI6MTc3MDUzNjI2NH0.gNptWizPrkVlxkryH8nO_B_ymPbEAZ_zySdnjRSRJDs";
@@ -48,7 +49,7 @@ export default function ListingDetails() {
       setError("");
       try {
         const response = await fetch(
-          `http://localhost:3001/listings/${listingId}`,
+          `${API_BASE}/listings/${listingId}`,
           {
             headers: {
               Authorization: `Bearer ${token || FALLBACK_TOKEN}`,
@@ -87,7 +88,7 @@ export default function ListingDetails() {
     setReviewsError("");
     try {
       const response = await fetch(
-        `http://localhost:3003/reviews?listingId=${encodeURIComponent(
+        `${API_BASE}/reviews?listingId=${encodeURIComponent(
           listingId
         )}&limit=2`,
         {
@@ -137,7 +138,7 @@ export default function ListingDetails() {
         throw new Error("Comment is required.");
       }
 
-      const response = await fetch("http://localhost:3003/reviews", {
+      const response = await fetch(`${API_BASE}/reviews`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token || FALLBACK_TOKEN}`,
@@ -170,7 +171,7 @@ export default function ListingDetails() {
     setReviewsError("");
     try {
       const response = await fetch(
-        `http://localhost:3003/reviews?listingId=${encodeURIComponent(
+        `${API_BASE}/reviews?listingId=${encodeURIComponent(
           listingId
         )}&limit=2&nextToken=${encodeURIComponent(reviewsNextToken)}`,
         {

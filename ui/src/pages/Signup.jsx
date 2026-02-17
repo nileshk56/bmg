@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE } from "../config/api.js";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -71,7 +72,7 @@ export default function Signup() {
         throw new Error("Please enter a valid birthdate.");
       }
 
-      const response = await fetch("http://localhost:3000/users/register", {
+      const response = await fetch(`${API_BASE}/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

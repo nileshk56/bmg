@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
+import { API_BASE } from "../config/api.js";
 
 export default function Profile() {
   const { user, token, updateUser } = useAuth();
@@ -103,7 +104,7 @@ export default function Profile() {
     setSuccess("");
 
     try {
-      const presignRes = await fetch("http://localhost:3000/uploads/presign", {
+      const presignRes = await fetch(`${API_BASE}/uploads/presign`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -184,7 +185,7 @@ export default function Profile() {
         throw new Error("Please enter a valid birthdate.");
       }
 
-      const response = await fetch("http://localhost:3000/users/me", {
+      const response = await fetch(`${API_BASE}/users/me`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

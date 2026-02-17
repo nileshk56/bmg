@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import { ucFirst } from "../utils/textUtils.js";
+import { API_BASE } from "../config/api.js";
 
 const FALLBACK_TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0YjM2NzBiYy05MGU1LTQ1YTUtYjYwMC03NmMyYzI3Y2ZkYjIiLCJlbWFpbCI6Im5pbGVzaDFAZXhhbXBsZS5jb20iLCJmaXJzdG5hbWUiOiJuaWxlc2giLCJsYXN0bmFtZSI6ImthbiIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3NzA1NDQ1NzUsImV4cCI6MTc3MDU0ODE3NX0.X4R-Df4JgRKrcDZH6nwtN-yz8s-lbwZ07EU2p336W48";
@@ -21,7 +22,7 @@ export default function MyListing() {
       setLoading(true);
       setError("");
       try {
-        const response = await fetch("http://localhost:3001/listings/my", {
+        const response = await fetch(`${API_BASE}/listings/my`, {
           headers: {
             Authorization: `Bearer ${token || FALLBACK_TOKEN}`,
             "Content-Type": "application/json",
@@ -65,7 +66,7 @@ export default function MyListing() {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/listings/${listingId}`,
+        `${API_BASE}/listings/${listingId}`,
         {
           method: "DELETE",
           headers: {

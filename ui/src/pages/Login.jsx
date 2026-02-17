@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { API_BASE } from "../config/api.js";
 
 export default function Login() {
   const { login, isAuthed } = useAuth();
@@ -53,7 +54,7 @@ export default function Login() {
         throw new Error("Password must be 5 to 20 alphanumeric characters.");
       }
 
-      const response = await fetch("http://localhost:3000/users/login", {
+      const response = await fetch(`${API_BASE}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

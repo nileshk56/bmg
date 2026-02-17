@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import { ucFirst } from "../utils/textUtils.js";
+import { API_BASE } from "../config/api.js";
 
 const FALLBACK_TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0YjM2NzBiYy05MGU1LTQ1YTUtYjYwMC03NmMyYzI3Y2ZkYjIiLCJlbWFpbCI6Im5pbGVzaDFAZXhhbXBsZS5jb20iLCJmaXJzdG5hbWUiOiJuaWxlc2giLCJsYXN0bmFtZSI6ImthbiIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3NzA1MzI2NjQsImV4cCI6MTc3MDUzNjI2NH0.gNptWizPrkVlxkryH8nO_B_ymPbEAZ_zySdnjRSRJDs";
@@ -37,7 +38,7 @@ export default function ListingBookings() {
         }
 
         const bookingRes = await fetch(
-          `http://localhost:3002/bookings/listing/${listingId}?${params.toString()}`,
+          `${API_BASE}/bookings/listing/${listingId}?${params.toString()}`,
           {
             headers: {
               Authorization: `Bearer ${token || FALLBACK_TOKEN}`,
@@ -87,7 +88,7 @@ export default function ListingBookings() {
       }
 
       const response = await fetch(
-        `http://localhost:3002/bookings/listing/${listingId}?${params.toString()}`,
+        `${API_BASE}/bookings/listing/${listingId}?${params.toString()}`,
         {
           headers: {
             Authorization: `Bearer ${token || FALLBACK_TOKEN}`,

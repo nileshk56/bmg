@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
+import { API_BASE } from "../config/api.js";
 import { ucFirst } from "../utils/textUtils.js";
 
 const FALLBACK_TOKEN =
@@ -20,7 +21,7 @@ export default function MyBookings() {
       setLoading(true);
       setError("");
       try {
-        const response = await fetch("http://localhost:3002/bookings/my", {
+        const response = await fetch(`${API_BASE}/bookings/my`, {
           headers: {
             Authorization: `Bearer ${token || FALLBACK_TOKEN}`,
           },
@@ -39,7 +40,7 @@ export default function MyBookings() {
 
         const listingResponses = await Promise.all(
           listingIds.map((id) =>
-            fetch(`http://localhost:3001/listings/${id}`, {
+            fetch(`${API_BASE}/listings/${id}`, {
               headers: {
                 Authorization: `Bearer ${token || FALLBACK_TOKEN}`,
                 "Content-Type": "application/json",

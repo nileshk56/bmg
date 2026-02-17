@@ -6,6 +6,7 @@ import AreaInput from "../components/AreaInput.jsx";
 import { toApiArea } from "../utils/areaUtils.js";
 import { AREAS } from "../data/areas.js";
 import { CITIES } from "../data/cities.js";
+import { API_BASE } from "../config/api.js";
 
 const FALLBACK_TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0YjM2NzBiYy05MGU1LTQ1YTUtYjYwMC03NmMyYzI3Y2ZkYjIiLCJlbWFpbCI6Im5pbGVzaDFAZXhhbXBsZS5jb20iLCJmaXJzdG5hbWUiOiJuaWxlc2giLCJsYXN0bmFtZSI6ImthbiIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3NzA1MzI2NjQsImV4cCI6MTc3MDUzNjI2NH0.gNptWizPrkVlxkryH8nO_B_ymPbEAZ_zySdnjRSRJDs";
@@ -159,7 +160,7 @@ export default function AddListing() {
     if (photos.length === 0) return [];
     const uploadedUrls = [];
     for (const item of photos) {
-      const presignRes = await fetch("http://localhost:3004/uploads/presign", {
+      const presignRes = await fetch(`${API_BASE}/uploads/presign`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token || FALLBACK_TOKEN}`,
@@ -276,7 +277,7 @@ export default function AddListing() {
         pin: normalizedPin || "",
       };
 
-      const response = await fetch("http://localhost:3001/listings", {
+      const response = await fetch(`${API_BASE}/listings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
