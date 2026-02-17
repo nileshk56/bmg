@@ -23,7 +23,11 @@ jobs:
           set -euo pipefail
           BEFORE="${{ github.event.before }}"
           AFTER="${{ github.sha }}"
-          CHANGED=$(git diff --name-only "$BEFORE" "$AFTER" || true)
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            CHANGED=$(git ls-tree --name-only -r "$AFTER" || true)
+          else
+            CHANGED=$(git diff --name-only "$BEFORE" "$AFTER" || true)
+          fi
 
           SERVICES=$(echo "$CHANGED" | awk -F/ '$1=="services" && NF>2 {print $2}' | sort -u)
           if [ -z "$SERVICES" ]; then
