@@ -104,7 +104,7 @@ export default function Login() {
         <div className="p-4">
           <span className="badge rounded-pill text-bg-light">
             <i className="fa-solid fa-house-chimney-window me-2"></i>
-            HomeFeast
+            House of Feast
           </span>
         </div>
         <div className="p-4">
@@ -233,7 +233,7 @@ export default function Login() {
 
               <div className="text-center mt-4 text-muted small">
                 <i className="fa-solid fa-plate-wheat me-2"></i>
-                New to HomeFeast?{" "}
+                New to House of Feast?{" "}
                 <Link to="/signup" className="text-feast fw-semibold">
                   Sign up here
                 </Link>

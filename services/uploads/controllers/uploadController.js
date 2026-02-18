@@ -20,8 +20,8 @@ const createPresigned = async (req, res) => {
 
     const s3 = new AWS.S3({
       region: config.aws.region,
-      accessKeyId: config.aws.accessKeyId,
-      secretAccessKey: config.aws.secretAccessKey
+      //accessKeyId: config.aws.accessKeyId,
+      //secretAccessKey: config.aws.secretAccessKey
     });
 
     const safeContentType = typeof contentType === 'string' && contentType.trim()
@@ -70,7 +70,6 @@ const createPresigned = async (req, res) => {
     });
 
     const fileUrl = `https://${config.s3.bucket}.s3.${config.aws.region}.amazonaws.com/${key}`;
-console.log("configngk", fileUrl, config)
 
     res.json({
       upload: presigned,

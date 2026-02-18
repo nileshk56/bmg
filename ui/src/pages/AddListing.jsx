@@ -329,7 +329,7 @@ export default function AddListing() {
             <div className="col-lg-6 text-center text-lg-end">
               <div className="listing-hero-card d-inline-block">
                 <i className="fa-solid fa-utensils"></i>
-                <span>HomeFeast Host Console</span>
+                <span>House of Feast Host Console</span>
               </div>
             </div>
           </div>

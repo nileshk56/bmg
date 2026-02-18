@@ -104,7 +104,7 @@ export default function Signup() {
         <div className="p-4">
           <span className="badge rounded-pill text-bg-light">
             <i className="fa-solid fa-house-chimney-window me-2"></i>
-            HomeFeast
+            House of Feast
           </span>
         </div>
         <div className="p-4">
