@@ -9,6 +9,7 @@ const {
   deleteListing
 } = require('../services/listingsService');
 const axios = require('axios');
+const AWS = require('aws-sdk');
 const config = require('../config');
 
 const normalizeMenuItems = (menuItems) => {
@@ -162,14 +163,23 @@ const create = async (req, res) => {
       city: city.trim().toLowerCase()
     });
 
-    const baseUrl = config.usersServiceUrl;
-    if (baseUrl) {
+    const functionName = config.usersFunctionName;
+    if (functionName) {
+      const lambda = new AWS.Lambda({ region: config.aws.region });
       const token = req.headers['authorization'];
-      await axios.put(
-        `${baseUrl}/users/${userId}`,
-        { userType: 'HOST' },
-        { headers: token ? { Authorization: token } : undefined }
-      );
+      const payload = {
+        path: `/users/${userId}`,
+        httpMethod: 'PUT',
+        headers: token ? { Authorization: token } : {},
+        body: JSON.stringify({ userType: 'host' }),
+        isBase64Encoded: false
+      };
+
+      await lambda.invoke({
+        FunctionName: functionName,
+        InvocationType: 'RequestResponse',
+        Payload: JSON.stringify(payload)
+      }).promise();
     }
 
     res.json({ listingId: listing.listingId });

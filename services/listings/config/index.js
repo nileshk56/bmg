@@ -20,7 +20,7 @@ const config = {
     endpoint: process.env.DYNAMODB_ENDPOINT || undefined
   },
   jwtSecret: process.env.JWT_SECRET,
-  usersServiceUrl: process.env.USERS_SERVICE_URL,
+  usersFunctionName: process.env.USERS_FUNCTION_NAME,
   uploadsServiceUrl: process.env.UPLOADS_SERVICE_URL
 };
 console.log(config);
