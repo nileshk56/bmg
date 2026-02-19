@@ -1,4 +1,4 @@
-const { createUser, getUserByEmail, searchUsersByName, getUserByUid, updateUserPhoto, updateUserType, updateUser } = require('../services/usersService');
+const { createUser, getUserByEmail, searchUsersByName, getUserByUid, updateUser } = require('../services/usersService');
 const bcrypt = require('bcryptjs');
 const { signToken } = require('../utils/jwt');
 const config = require('../config');
@@ -85,46 +85,16 @@ const getProfilePhotoUploadUrl = async (req, res) => {
     }
 };
 
-const saveProfilePhoto = async (req, res) => {
-    try {
-        const { photoUrl } = req.body;
-        if (!photoUrl || typeof photoUrl !== 'string') {
-            return res.status(400).json({ message: 'photoUrl is required' });
-        }
-
-        const userId = req.user?.uid;
-        if (!userId) return res.status(401).json({ message: 'Unauthorized' });
-
-        const updated = await updateUserPhoto(userId, photoUrl.trim());
-        res.json({ user: updated });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
-const setUserType = async (req, res) => {
-    try {
-        const userUid = req.user?.uid;
-        if (!userUid) return res.status(401).json({ message: 'Unauthorized' });
-
-        const { userType } = req.body;
-        if (!userType || typeof userType !== 'string') {
-            return res.status(400).json({ message: 'userType is required' });
-        }
-
-        const updated = await updateUserType(userUid, userType.trim());
-        res.json({ user: updated });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
 const editUser = async (req, res) => {
     try {
         const userId = req.user?.uid;
+        const { id } = req.params;
         if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+        if (!id || id !== userId) {
+            return res.status(403).json({ message: 'Forbidden' });
+        }
 
-        const allowed = ['firstname', 'lastname', 'gender', 'dob', 'photoUrl'];
+        const allowed = ['firstname', 'lastname', 'gender', 'dob', 'photoUrl', 'userType'];
         const updates = {};
 
         for (const key of allowed) {
@@ -146,6 +116,9 @@ const editUser = async (req, res) => {
         if (updates.photoUrl !== undefined && typeof updates.photoUrl !== 'string') {
             return res.status(400).json({ message: 'photoUrl must be a string' });
         }
+        if (updates.userType !== undefined && typeof updates.userType !== 'string') {
+            return res.status(400).json({ message: 'userType must be a string' });
+        }
 
         if (Object.keys(updates).length === 0) {
             return res.status(400).json({ message: 'No valid fields to update' });
@@ -164,7 +137,5 @@ module.exports = {
     searchUsers,
     getUserById,
     getProfilePhotoUploadUrl,
-    saveProfilePhoto,
-    setUserType,
     editUser
 };

@@ -185,19 +185,29 @@ export default function Profile() {
         throw new Error("Please enter a valid birthdate.");
       }
 
-      const response = await fetch(`${API_BASE}/users/me`, {
+      const userId = user?.uid || user?.userId || user?.id;
+      if (!userId) {
+        throw new Error("Unable to update profile without a user id.");
+      }
+
+      const payload = {
+        firstname: form.firstname.trim(),
+        lastname: form.lastname.trim(),
+        gender: form.gender,
+        dob: form.dob,
+        photoUrl: user?.profilePhoto || previewUrl || "",
+      };
+      if (user?.userType) {
+        payload.userType = user.userType.toLowerCase();
+      }
+
+      const response = await fetch(`${API_BASE}/users/${userId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          firstname: form.firstname.trim(),
-          lastname: form.lastname.trim(),
-          gender: form.gender,
-          dob: form.dob,
-          photoUrl: user?.profilePhoto || previewUrl || "",
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {

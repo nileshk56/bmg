@@ -6,8 +6,6 @@ const {
   searchUsers,
   getUserById,
   getProfilePhotoUploadUrl,
-  saveProfilePhoto,
-  setUserType,
   editUser
 } = require('../controllers/userController');
 const authMiddleware = require('../middlewares/auth');
@@ -17,9 +15,7 @@ router.post('/login', login);
 router.get("/search", authMiddleware, searchUsers);
 router.get('/:id', authMiddleware, getUserById);
 router.post('/photo/presign', authMiddleware, getProfilePhotoUploadUrl);
-router.put('/photo', authMiddleware, saveProfilePhoto);
-router.put('/type', authMiddleware, setUserType);
-router.put('/me', authMiddleware, editUser);
+router.put('/:id', authMiddleware, editUser);
 
 
 // Protected route example

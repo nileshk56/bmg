@@ -166,7 +166,7 @@ const create = async (req, res) => {
     if (baseUrl) {
       const token = req.headers['authorization'];
       await axios.put(
-        `${baseUrl}/users/type`,
+        `${baseUrl}/users/${userId}`,
         { userType: 'HOST' },
         { headers: token ? { Authorization: token } : undefined }
       );
