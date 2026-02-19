@@ -290,8 +290,9 @@ export default function AddListing() {
         throw new Error("Listing creation failed. Please check inputs.");
       }
 
-      setSuccess("Listing added! Redirecting to home...");
-      setTimeout(() => navigate("/home"), 1200);
+      setSuccess(
+        "Your listing is under review. It can take up to two weeks to review it. You will be notified in the queue."
+      );
     } catch (err) {
       setError(err.message);
     } finally {
@@ -526,8 +527,19 @@ export default function AddListing() {
                   </div>
                 ) : null}
                 {success ? (
-                  <div className="alert alert-success mt-4 py-2 small">
-                    {success}
+                  <div className="alert alert-success mt-4 small">
+                    <div className="fw-semibold mb-1">
+                      <i className="fa-solid fa-circle-check me-2"></i>Listing
+                      submitted
+                    </div>
+                    <div className="mb-2">{success}</div>
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-outline-success"
+                      onClick={() => navigate("/home")}
+                    >
+                      Go to home
+                    </button>
                   </div>
                 ) : null}
 
